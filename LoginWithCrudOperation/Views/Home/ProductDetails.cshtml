@@ -1,0 +1,124 @@
+﻿@model LoginWithCrudOperation.Models.Product
+
+@{
+    ViewBag.Title = "ProductDetails";
+}
+
+<h2>ProductDetails</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActualPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActualPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinalPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinalPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfferPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfferPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SaleCommission)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SaleCommission)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+
+        <dd>
+            <img src="~/Images/@Url.Content(@Model.ImagePath)" width="100px" height="50px" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath2)
+        </dt>
+
+        <dd>
+            <img src="~/Images/@Url.Content(@Model.ImagePath2)" width="100px" height="50px" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath3)
+        </dt>
+
+        <dd>
+            <img src="~/Images/@Url.Content(@Model.ImagePath3)" width="100px" height="50px" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath4)
+        </dt>
+
+        <dd>
+            <img src="~/Images/@Url.Content(@Model.ImagePath4)" width="100px" height="50px" />
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

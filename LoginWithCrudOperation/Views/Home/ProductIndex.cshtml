@@ -1,0 +1,100 @@
+﻿@model IEnumerable<LoginWithCrudOperation.Models.Product>
+
+@{
+    ViewBag.Title = "ProductIndex";
+}
+
+<h2>ProductIndex</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddProduct","Home")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActualPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinalPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OfferPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SaleCommission)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImagePath2)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.UserId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ActualPrice)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FinalPrice)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.OfferPrice)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SaleCommission)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Category)
+    </td>
+    <td>
+        <img src="~/Images/@item.ImagePath" width="100px" height="50px" />
+    </td>
+    <td>
+        <img src="~/Images/@item.ImagePath2" width="100px" height="50px" />
+    </td>
+
+    <td>
+        @Html.ActionLink("Edit", "UpdateProduct", new { id = item.ProductId }) |
+        @Html.ActionLink("Details", "ProductDetails", new { id = item.ProductId }) |
+        @Html.ActionLink("Delete", "DeleteProduct", new { id = item.ProductId })
+    </td>
+</tr>
+}
+
+</table>
