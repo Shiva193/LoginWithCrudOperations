@@ -1,0 +1,81 @@
+﻿@model IEnumerable<LoginWithCrudOperation.Models.CommonInfo>
+
+@{
+    ViewBag.Title = "CommonInfoIndex";
+}
+
+<h2>CommonInfoIndex</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddCommonInfo","Home")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.InfoId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VideoUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sequence)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletedBy)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.InfoId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            <img src="~/Images/@item.Image" width="100px" height="50px" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VideoUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sequence)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeletedBy)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "UpdateCommonInfo", new {  id=item.InfoId  }) |
+            @Html.ActionLink("Details", "CommonInfoDetails", new {  id=item.InfoId }) |
+            @Html.ActionLink("Delete", "DeleteCommonInfo", new {  id=item.InfoId })
+        </td>
+    </tr>
+}
+
+</table>

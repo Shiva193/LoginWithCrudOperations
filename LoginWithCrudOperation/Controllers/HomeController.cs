@@ -14,6 +14,61 @@ namespace LoginWithCrudOperation.Controllers
     {
         // GET: Home
         Database_Access_Layer.db1 dblayer = new Database_Access_Layer.db1();
+        public ActionResult CommonInfoIndex()
+        {
+            return View(dblayer.commonInfos.ToList());
+        }
+        public ActionResult CommonInfoDetails(string id)
+        {
+            return View(dblayer.commonInfos.Single(x => x.InfoId == id));
+        }
+        public ActionResult DeleteCommonInfo(string id)
+        {
+            dblayer.CommonInfo_Delete(id);
+            return RedirectToAction("CommonInfoIndex");
+        }
+        public ActionResult AddCommonInfo()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddCommonInfo(CommonInfo c,HttpPostedFileBase file)
+        {
+            string filename = "";
+            if (file != null && file.ContentLength > 0)
+            {
+                filename = Path.GetFileName(file.FileName);
+                string fileext = Path.GetExtension(filename);
+                if (fileext == ".jpg" || fileext == ".png")
+                {
+                    string filepath = Path.Combine(Server.MapPath("~/Images"), filename);
+                    file.SaveAs(filepath);
+                }
+            }
+            dblayer.CommonInfo_Add(c, filename );
+            return RedirectToAction("CommonInfoIndex");
+        }
+        public ActionResult UpdateCommonInfo(string id)
+        {
+            return View(dblayer.commonInfos.Single(x => x.InfoId == id));
+        }
+        [HttpPost]
+        public ActionResult UpdateCommonInfo(CommonInfo c,HttpPostedFileBase file)
+        {
+            string filename = "";
+            if (file != null && file.ContentLength > 0)
+            {
+                filename = Path.GetFileName(file.FileName);
+                string fileext = Path.GetExtension(filename);
+                if (fileext == ".jpg" || fileext == ".png")
+                {
+                    string filepath = Path.Combine(Server.MapPath("~/Images"), filename);
+                    file.SaveAs(filepath);
+                }
+            }
+            dblayer.CommonInfo_Update(c, filename);
+            return RedirectToAction("CommonInfoIndex");
+        }
         public ActionResult ProductIndex()
         {
             return View(dblayer.GetPruducts.ToList());
@@ -24,7 +79,6 @@ namespace LoginWithCrudOperation.Controllers
         }
         public ActionResult AddProduct()
         {
-            
             return View();
         }
         [HttpPost]

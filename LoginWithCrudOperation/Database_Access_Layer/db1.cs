@@ -16,6 +16,127 @@ namespace LoginWithCrudOperation.Database_Access_Layer
         string strcon = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
         SqlConnection con;
         SqlCommand cmd;
+        public IEnumerable<CommonInfo> commonInfos
+        {
+            get
+            {
+                List<CommonInfo> cinfos = new List<CommonInfo>();
+                con = new SqlConnection(strcon);
+                con.Open();
+                cmd = new SqlCommand("CommonInfo_All", con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    CommonInfo ci = new CommonInfo();
+                    ci.InfoId =dr["InfoId"].ToString();
+                    ci.Title = dr["Title"].ToString();
+                    ci.Description = dr["Description"].ToString();
+                    ci.Image = dr["Image"].ToString();
+                    ci.VideoUrl = dr["VideoUrl"].ToString();
+                    ci.Status = dr["Status"].ToString();
+                    ci.Sequence = Convert.ToInt32(dr["Sequence"]);
+                    ci.UpdatedBy = dr["UpdatedBy"].ToString();
+                    ci.DeletedBy = dr["DeletedBy"].ToString();
+                    cinfos.Add(ci);
+                }
+                dr.Close();
+                con.Close();
+                return cinfos;
+            }
+        }
+        public void CommonInfo_Add(CommonInfo c, string filename )
+        {
+            con = new SqlConnection(strcon);
+            con.Open();
+            cmd = new SqlCommand("sp_commoninfo", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter paramInfoId = new SqlParameter();
+            paramInfoId.ParameterName = "@InfoId";
+            paramInfoId.Value = "";
+            cmd.Parameters.Add(paramInfoId);
+
+            SqlParameter paramTitle = new SqlParameter();
+            paramTitle.ParameterName = "@Title";
+            paramTitle.Value = c.Title;
+            cmd.Parameters.Add(paramTitle);
+
+            SqlParameter paramDescription = new SqlParameter();
+            paramDescription.ParameterName = "@Description";
+            paramDescription.Value = c.Description;
+            cmd.Parameters.Add(paramDescription);
+
+            SqlParameter paramImage = new SqlParameter();
+            paramImage.ParameterName = "@Image";
+            paramImage.Value = filename;
+            cmd.Parameters.Add(paramImage);
+
+            SqlParameter paramVideoUrl = new SqlParameter();
+            paramVideoUrl.ParameterName = "@VideoUrl";
+            paramVideoUrl.Value = c.VideoUrl;
+            cmd.Parameters.Add(paramVideoUrl);
+
+            SqlParameter paramStatus = new SqlParameter();
+            paramStatus.ParameterName = "@Status";
+            paramStatus.Value = c.Status;
+            cmd.Parameters.Add(paramStatus);
+
+            SqlParameter paramSequence = new SqlParameter();
+            paramSequence.ParameterName = "@Sequence";
+            paramSequence.Value = c.Sequence;
+            cmd.Parameters.Add(paramSequence);
+
+            SqlParameter paramUpdatedBy = new SqlParameter();
+            paramUpdatedBy.ParameterName = "@UpdatedBy";
+            paramUpdatedBy.Value = c.UpdatedBy;
+            cmd.Parameters.Add(paramUpdatedBy);
+
+            SqlParameter paramDeletedBy = new SqlParameter();
+            paramDeletedBy.ParameterName = "@DeletedBy";
+            paramDeletedBy.Value = c.DeletedBy;
+            cmd.Parameters.Add(paramDeletedBy);
+
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+        public void CommonInfo_Update(CommonInfo c, string filename)
+        {
+            con = new SqlConnection(strcon);
+            con.Open();
+            cmd = new SqlCommand("sp_commoninfo", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlParameter paramInfoId = new SqlParameter("@InfoId", c.InfoId);
+            cmd.Parameters.Add(paramInfoId);
+            SqlParameter paramTitle = new SqlParameter("@Title", c.Title);
+            cmd.Parameters.Add(paramTitle);
+            SqlParameter paramDescription= new SqlParameter("@Description", c.Description);
+            cmd.Parameters.Add(paramDescription);
+            SqlParameter paramImage = new SqlParameter("@Image", filename);
+            cmd.Parameters.Add(paramImage);
+            SqlParameter paramVideoUrl = new SqlParameter("@VideoUrl", c.VideoUrl);
+            cmd.Parameters.Add(paramVideoUrl);
+            SqlParameter paramStatus = new SqlParameter("@Status", c.Status);
+            cmd.Parameters.Add(paramStatus);
+            SqlParameter paramSequence = new SqlParameter("@Sequence", c.Sequence);
+            cmd.Parameters.Add(paramSequence);
+            SqlParameter paramUpdatedBy = new SqlParameter("@UpdatedBy", c.UpdatedBy);
+            cmd.Parameters.Add(paramUpdatedBy);
+            SqlParameter paramDeletedBy = new SqlParameter("@DeletedBy", c.DeletedBy);
+            cmd.Parameters.Add(paramDeletedBy);
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+        public void CommonInfo_Delete(string id)
+        {
+            con = new SqlConnection(strcon);
+            con.Open();
+            cmd = new SqlCommand("CommonInfo_Delete", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@InfoId", id);
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
         public IEnumerable<Employee>EmpList
         {
             get
@@ -163,7 +284,6 @@ namespace LoginWithCrudOperation.Database_Access_Layer
         {
             con = new SqlConnection(strcon);
             con.Open();
-
             cmd = new SqlCommand("Product_Add", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlParameter paramProductId = new SqlParameter("@ProductId", p.ProductId);
